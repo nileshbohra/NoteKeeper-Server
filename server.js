@@ -44,7 +44,7 @@ app.route('/read').get((req, res) => {
         }
         res.send(note);
     })
-})
+});
 
 app.route('/delete/:id').delete((req, res) => {
     const id = req.params.id;
@@ -53,9 +53,11 @@ app.route('/delete/:id').delete((req, res) => {
             res.send(err);
         } else {
             console.log("successfully deleted note");
+            res.send(result);
         }
     })
-})
+});
+
 app.listen(port, () => {
     console.log(`server started at port ${port}`);
 })
