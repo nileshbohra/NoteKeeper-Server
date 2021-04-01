@@ -41,9 +41,8 @@ app.route('/read').get((req, res) => {
     Note.find({}, (err, note) => {
         if (err) {
             res.send(err);
-        } else {
-            res.send(note);
         }
+        res.send(note);
     })
 })
 
