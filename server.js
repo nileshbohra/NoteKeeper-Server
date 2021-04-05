@@ -16,7 +16,7 @@ const DB = {
     url: process.env.DB_URL
 }
 
-mongoose.connect(DB.url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(DB.url, { useNewUrlParser: true, useUnifiedTopology: true }).then((res) => console.log("DB connected"));
 
 app.route('/create')
     .post((req, res) => {
@@ -31,7 +31,6 @@ app.route('/create')
             if (err) {
                 console.log(err);
             } else {
-                console.log("Saved to Database");
                 res.send("Saved to Database")
             }
         });
@@ -52,7 +51,6 @@ app.route('/delete/:id').delete((req, res) => {
         if (err) {
             res.send(err);
         } else {
-            console.log("successfully deleted note");
             res.send(result);
         }
     })
