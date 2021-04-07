@@ -16,7 +16,7 @@ const DB = {
     url: process.env.DB_URL
 }
 
-mongoose.connect(DB.url, { useNewUrlParser: true, useUnifiedTopology: true }).then((res) => console.log("DB connected"));
+mongoose.connect(DB.url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true, useCreateIndex: true }).then((res) => console.log("DB connected"));
 
 app.route('/create')
     .post((req, res) => {
@@ -43,6 +43,17 @@ app.route('/read').get((req, res) => {
         }
         res.send(note);
     })
+});
+
+app.route('/update/:id').put((req, res) => {
+    const id = req.params.id;
+    Note.findByIdAndUpdate(id, req.body, (err, note) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send(note)
+        }
+    });
 });
 
 app.route('/delete/:id').delete((req, res) => {
